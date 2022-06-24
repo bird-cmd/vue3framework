@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./reactivity.global.js"></script>
+    <div id="app"></div>
+    <script>
+        const {effect,reactive} = VueReactivity;
+        // const state = reactive({name:'wangerhao',age:12,address:{num:13}});
+        // console.log(state);
+        // effect(()=>{
+        //     app.innerHTML = state.name+state.age;
+        // })
+        // setTimeout(() => {
+        //     state.age++;
+        // }, 1000);
+
+        // const state = reactive({flag:true,name:'jw',age:30});
+        // effect(()=>{
+        //     console.log('render');
+        //     document.body.innerHTML =state.flag?state.name:state.age;
+
+        // });
+        // setTimeout(() => {
+        //     state.flag = false;
+        //     setTimeout(() => {
+        //         console.log('修改name原则上不更新');
+        //         state.name = 'zf';
+        //     }, 1000);
+        // }, 1000);
+        const state = reactive({flag:true,name:'jw',age:30});
+        let runner =effect(()=>{
+            document.body.innerHTML = state.age;
+        })
+        runner.effect.stop();
+        setTimeout(() => {
+            state.age = 1000;
+            setTimeout(() => {
+                runner()
+            }, 1000);
+        }, 1000);
+    </script>
+</body>
+</html>
